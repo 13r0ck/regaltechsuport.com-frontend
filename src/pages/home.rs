@@ -1,17 +1,154 @@
 use yew::prelude::*;
+use yew::services::fetch::{FetchService, FetchTask, Request, Response};
+use yew::format::{Text, Nothing};
+use easy_hasher::easy_hasher::*;
+use rand::prelude::*;
+use rand_seeder::Seeder;
+use rand_pcg::Pcg64;
+use rand::seq::SliceRandom;
 
-pub struct Home {}
+struct PasswdGen {
+    passwd: Option<String>,
+    // Hashed (load/click/delta_fetch) time as seed for the password
+    site_load_time: Option<f64>,
+    button_press_time: Option<f64>,
+    delta_fetch: Option<f64>,
+    words: Option<Vec<String>>,
+}
+
+struct State {
+    passwd_gen: PasswdGen,
+    contact_one_state: String,
+    contact_two_state: String,
+    password_state: String,
+    password_value: String,
+}
+
+pub struct Home {
+    state: State,
+    link: ComponentLink<Self>,
+    task: Option<FetchTask>,
+}
+
+pub enum Msg {
+    CreatePasswd,
+    StartFetch,
+    GetWordsSuccess(String),
+    GetWordsError,
+    GetSupport1,
+    GetSupport2,
+}
 
 impl Component for Home {
-    type Message = ();
+    type Message = Msg;
     type Properties = ();
 
-    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Self {}
+    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        let now = js_sys::Date::new_0().get_time();
+        link.send_message(Msg::StartFetch);
+        Self {
+            state: State {
+                passwd_gen: PasswdGen {
+                    passwd: None,
+                    site_load_time: Some(now),
+                    button_press_time: None,
+                    delta_fetch: None,
+                    words: None,
+                },
+                contact_one_state: "hidden".to_string(),
+                contact_two_state: "hidden".to_string(),
+                password_state: "invisible".to_string(),
+                password_value: "Click Generate!".to_string(),
+            },
+            link,
+            task: None,
+        }
     }
 
-    fn update(&mut self, _: Self::Message) -> ShouldRender {
-        true
+    fn update(&mut self, message: Self::Message) -> ShouldRender {
+        match message {
+            Msg::StartFetch => {
+                // grab the list of words via a fetch
+                let get_request = Request::get("/sections/passwd/words.txt")
+                    .body(Nothing)
+                    .expect("Failed get request");
+                let callback = self.link.callback(|response: Response<Text>| {
+                    if let (_, Ok(body)) = response.into_parts() {
+                        return Msg::GetWordsSuccess(body);
+                    } else {
+                        Msg::GetWordsError
+                    }
+                });
+                self.task = Some(FetchService::fetch(get_request, callback).unwrap());
+                true
+            },
+            Msg::CreatePasswd => {
+                let now = js_sys::Date::new_0().get_time();
+                self.state.passwd_gen.button_press_time = Some(now);
+                // b/c rand reliablilty on wasm is spotty we cannot use system
+                // seed sources to create the seed. Rather we create one from the hash
+                // from physical values, time (page load time), and virtual distance
+                // from server (delta time to fetch from server). And time of button
+                // press so that hash is different every time
+                let seed = keccak512(&format!("{}{}{}", 
+                                        &self.state.passwd_gen.button_press_time.as_ref().unwrap(),
+                                        &self.state.passwd_gen.site_load_time.as_ref().unwrap(),
+                                        &self.state.passwd_gen.delta_fetch.as_ref().unwrap())).to_hex_string();
+                // generate random object (rng) with seed
+                let mut rng: Pcg64 = Seeder::from(seed).make_rng();
+                let mut rand_num_list: Vec<String> = vec!["".to_string(),"".to_string(),rng.gen_range(0,10).to_string()];
+                rand_num_list.shuffle(&mut rng);
+                let word_list = self.state.passwd_gen.words.as_ref().unwrap()[33..].to_vec();
+                let seperator = "@%+\\/`!#$^?:,(){}[]~-_.\"".chars().choose(&mut rng).unwrap();
+                let mut three_words: [String; 3] = [
+                                    word_list.choose(&mut rng).unwrap().clone(),
+                                    word_list.choose(&mut rng).unwrap().clone(),
+                                    word_list.choose(&mut rng).unwrap().clone()];
+                let tw_index = rng.gen_range(0,3);
+                three_words[tw_index] = three_words[tw_index].to_uppercase();
+                self.state.passwd_gen.passwd = Some(format!("{}{}{}{}{}{}{}{}",
+                        three_words[0],
+                        rand_num_list[0],
+                        seperator,
+                        three_words[1],
+                        rand_num_list[1],
+                        seperator,
+                        three_words[2],
+                        rand_num_list[2]
+                ));
+                self.state.password_value = self.state.passwd_gen.passwd.clone().unwrap();
+                self.state.password_state = "visible".to_string();
+                true
+            },
+            Msg::GetWordsSuccess(words_txt) => {
+                // if the fetch is successfull with grabbing words from server
+                let now = js_sys::Date::new_0().get_time();
+                if let Some(site_load_time) = self.state.passwd_gen.site_load_time {
+                    let delta_fetch = now - site_load_time;
+                    self.state.passwd_gen.delta_fetch = Some(delta_fetch);
+                }
+                self.state.passwd_gen.words = Some(words_txt.lines()
+                                        .map(|s| s.to_string())
+                                        .collect());
+                true
+            },
+            Msg::GetWordsError => {
+                // There was some error, I would rather not show the password generator
+                // than to show a possible insecure one.
+                println!("There was an error generating the password. Password gen hidden");
+                false
+            },
+            Msg::GetSupport1 => {
+                self.state.contact_one_state = "inline-block".to_string();
+                self.state.contact_two_state = "hidden".to_string();
+                true
+            },
+            Msg::GetSupport2 => {
+                self.state.contact_one_state = "hidden".to_string();
+                self.state.contact_two_state = "inline-block".to_string();
+                true
+            }
+        }
     }
 
     fn change(&mut self, _: Self::Properties) -> ShouldRender {
@@ -47,13 +184,15 @@ impl Component for Home {
                                         <img class="w-20 sm:w-48 mx-auto" src="/img/logo.svg" alt="Crown logo"/>
                                         <h1 class="text-4xl sm:text-6xl text-gray-800 mx-auto text-center mt-3 sm:mt-4 font-rtsBold">{"Regal Tech Support"}</h1>
                                         <h2 class="text-xl sm:text-2xl text-gray-800 mx-auto mt-1 sm:mt-4 font-rts text-center">{"IT Support at home and at work in Colorado Springs"}</h2>
-                                        <button type="button" class="text-xl sm:text-2xl focus:outline-none py-2 px-5 sm:py-4 sm:px-8 mx-auto flex mt-8 text-white font-rtsBold uppercase tracking-wide rounded-md items-center elevation-10 hover:from-blue-300 bg-gradient-to-tr from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</button>
+                                        <div class="flex">
+                                        <a href="#contact1" onclick=self.link.callback(move |_| Msg::GetSupport1) class="text-xl sm:text-2xl focus:outline-none py-2 px-5 sm:py-4 sm:px-8 mx-auto justify-center mt-8 text-white font-rtsBold uppercase tracking-wide rounded-md items-center elevation-10 hover:from-blue-300 bg-gradient-to-tr from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <img class="z-0 w-screen min-h-jumbotron h-screen object-cover object-center" src="/img/jumbotron.svg" alt="Castle in mountains"/>
                             </div>
                             <div class="max-w-7xl px-1 sm:px-20 md:mx-auto">
-                                <div id="contact1" class="bg-polygons-green rounded-bl-lg inline-block w-full rounded-br-lg bg-cover">
+                                <div id="contact1" class=format!("bg-polygons-green rounded-bl-lg w-full rounded-br-lg bg-cover {}", &self.state.contact_one_state)>
                                     <form action="#" class="text-center p-1 sm:p-2 sm:p-5 sm:p-10 elevation-24 m-3 sm:m-10 rounded-lg bg-white">
                                         <div class="flex m-1 sm:m-3">
                                             <p class="float-left text-xs w-20 sm:text-base sm:w-28 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
@@ -102,10 +241,10 @@ impl Component for Home {
                                     <div class="flex-row mt-3">
                                         <div class="bg-blue-500 h-1/4 sm:w-1/2 p-3 sm:float-left mb-3"><p>{"Mascot place holder"}</p></div>
                                         <p class="sm:w-1/2 sm:float-right p-3 text-lg md:text-2xl sm:mb-5">{"Nobody gets to choose when things break. We will be there for you whenever and wherever you need us!"}</p>
-                                        <button type="button" class="focus:outline-none text-xl sm:text-2xl py-2 px-5 sm:py-4 sm:px-8 mx-auto clear-both flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md items-center hover:from-blue-300 bg-gradient-to-tr from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</button>
+                                        <a href="#contact2" onclick=self.link.callback(move |_| Msg::GetSupport2) class="focus:outline-none text-xl sm:text-2xl py-2 px-5 sm:py-4 sm:px-8 mx-auto clear-both inline-block mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md items-center hover:from-blue-300 bg-gradient-to-tr from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</a>
                                     </div>
                                 </div>
-                                <div id="contact2" class="bg-polygons-gold rounded-lg mb-10 inline-block w-full rounded-br-lg bg-cover">
+                                <div id="contact2" class=format!("bg-polygons-gold rounded-lg mb-10 w-full rounded-br-lg bg-cover {}", &self.state.contact_two_state)>
                                     <form action="#" class="text-center p-1 sm:p-2 sm:p-5 sm:p-10 elevation-24 m-3 sm:m-10 rounded-lg bg-white">
                                         <div class="flex m-1 sm:m-3">
                                             <p class="float-left text-xs w-20 sm:text-base sm:w-28 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
@@ -137,20 +276,24 @@ impl Component for Home {
                                             <div class="flex-row lg:flex-col flex-1 mr-10">
                                                 <div class="bg-white rounded-lg mx-auto my-10 lg:w-5/12 lg:float-left elevation-24">
                                                     <div id="password_gen" class="max-w-xl p-5 pb-10 lg:p-10 text-center mx-auto lg:h-tools">
-                                                        <h2 class="font-rts text-2xl underline">{"Secure Password Generator"}</h2>
-                                                        <p>{"Should it have a number? "}<br class="visible sm:invisible" />{"What about replacing an "}<span class="italic bg-gray-300 rounded-sm">{"a"}</span>{" with "}<span class="italic bg-gray-300 rounded-sm">{"@"}</span>{"?"}</p>
-                                                        <p>{"Don't worry! We have you covered! Just click generate until you see a cryptographically secure password you like. Stop by any time!"}</p>
-                                                        <h3 class="text-2xl bg-indigo-700 py-4 select-all px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center lg:mt-14">{"PASSWORD"}</h3>
-                                                        <button type="button" class="focus:outline-none text-2xl py-4 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 from-green-500 to-green-700">{"GENERATE!"}</button>
+                                                        <div class="h-64 sm:h-60 max-w-xs mx-auto">
+                                                            <h2 class="font-rts text-2xl underline">{"Secure Password Generator"}</h2>
+                                                            <p>{"Should it have a number? "}<br class="visible sm:invisible" />{"What about replacing an "}<span class="italic bg-gray-300 rounded-sm">{"a"}</span>{" with "}<span class="italic bg-gray-300 rounded-sm">{"@"}</span>{"?"}</p>
+                                                            <p>{"Don't worry! We have you covered! Just click generate until you see a cryptographically secure password you like. Stop by any time!"}</p>
+                                                        </div>
+                                                        <h3 class=format!("text-lg bg-indigo-700 py-4 select-all mx-auto text-gray-100 font-rts tracking-wide rounded-md justify-center {}",&self.state.password_state)>{&self.state.password_value}</h3>
+                                                        <button onclick=self.link.callback(move |_| Msg::CreatePasswd) class="focus:outline-none text-2xl py-4 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 from-green-500 to-green-700">{"GENERATE!"}</button>
                                                     </div>
                                                 </div>
                                                 <div class="bg-white rounded-lg mx-auto my-10 lg:w-5/12 lg:h-tools lg:float-right elevation-24">
                                                     <div id="breach_check" class="max-w-xl p-5 lg:p-10 text-center mx-auto">
-                                                        <h2 class="font-rts text-2xl underline">{"Data Breach Checker"}</h2>
-                                                        <p>{"Enter your email here and we will check daily to see if any of your accounts have been compromised."}</p>
-                                                        <p>{"We will only contact you after the first scan is complete, and if you are affected by any future data breaches. No marketing emails. We promise!"}</p>
+                                                        <div class="h-64 sm:h-60 md:w-72 mx-auto">
+                                                            <h2 class="font-rts text-2xl underline">{"Data Breach Checker"}</h2>
+                                                            <p>{"Enter your email here and we will check daily to see if any of your accounts have been compromised."}</p>
+                                                            <p>{"We will only contact you after the first scan is complete, and if you are affected by any future data breaches. No marketing emails. We promise!"}</p>
+                                                        </div>
                                                         <form href="#">
-                                                            <input placeholder="email@example.com" class="focus:outline-none text-xl border-4 border-indigo-700 py-4 px-8 mx-auto mt-8 text-gray-800 font-rts uppercase rounded-md text-center w-full" />
+                                                            <input placeholder="email@example.com" class="focus:outline-none text-xl border-4 border-indigo-700 py-4 px-8 mx-auto text-gray-800 font-rts uppercase rounded-md text-center w-full" />
                                                             <input class="focus:outline-none text-2xl py-4 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 from-green-500 to-green-700" type="submit" value="SUBMIT!" />
                                                         </form>
                                                     </div>
