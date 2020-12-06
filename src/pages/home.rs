@@ -20,6 +20,7 @@ struct State {
     passwd_gen: PasswdGen,
     contact_one_state: String,
     contact_two_state: String,
+    support_two_state: String,
     password_state: String,
     password_value: String,
 }
@@ -57,6 +58,7 @@ impl Component for Home {
                 },
                 contact_one_state: "hidden".to_string(),
                 contact_two_state: "hidden".to_string(),
+                support_two_state: "inline".to_string(),
                 password_state: "invisible".to_string(),
                 password_value: "Click Generate!".to_string(),
             },
@@ -141,11 +143,13 @@ impl Component for Home {
             Msg::GetSupport1 => {
                 self.state.contact_one_state = "inline-block".to_string();
                 self.state.contact_two_state = "hidden".to_string();
+                self.state.support_two_state = "inline".to_string();
                 true
             },
             Msg::GetSupport2 => {
                 self.state.contact_one_state = "hidden".to_string();
                 self.state.contact_two_state = "inline-block".to_string();
+                self.state.support_two_state = "hidden".to_string();
                 true
             },
         }
@@ -182,7 +186,7 @@ impl Component for Home {
                                 <div class="mt-10 xl:mt-24 h-96">
                                     <img class="w-20 sm:w-96 lg:w-56 xl:w-48 mx-auto" src="/img/logo.svg" alt="Crown logo"/>
                                     <h1 class="text-4xl md:text-7xl xl:text-6xl text-gray-800 mx-auto text-center mt-3 lg:mt-4 font-rtsBold">{"Regal Tech Support"}</h1>
-                                    <h2 class="text-xl md:text-4xl lg:text-3xl xl:text-2xl text-gray-800 mx-auto mt-1 lg:mt-4 font-rts text-center">{"IT Support at home and at work "}<br class="inline xl:hidden"/>{"in Colorado Springs"}</h2>
+                                    <h2 class="text-xl md:text-4xl lg:text-3xl xl:text-2xl text-gray-800 mx-auto mt-1 lg:mt-4 font-rts text-center">{"IT support at home and at work "}<br class="inline xl:hidden"/>{"in Colorado Springs"}</h2>
                                     <div class="flex">
                                     <a href="#contact1" onclick=self.link.callback(move |_| Msg::GetSupport1) class="text-xl sm:text-5xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mx-auto justify-center mt-8 text-white font-rtsBold uppercase tracking-wide rounded-md items-center elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</a>
                                     </div>
@@ -245,10 +249,10 @@ impl Component for Home {
                                     <p class="lg:w-1/2 lg:float-right p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl lg:mb-5">{"Nobody gets to choose when things break. We will be there for you whenever and wherever you need us!"}</p>
                                 </div>
                                 <div class="flex">
-                                    <a href="#contact2" onclick=self.link.callback(move |_| Msg::GetSupport2) class="text-xl sm:text-5xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mt-8 justify-center mx-auto text-white font-rtsBold uppercase tracking-wide rounded-md elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</a>
+                                    <a href="#contact2" onclick=self.link.callback(move |_| Msg::GetSupport2) class=format!("text-xl sm:text-5xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mt-8 justify-center mx-auto text-white font-rtsBold uppercase tracking-wide rounded-md elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 {}", &self.state.support_two_state)>{"GET SUPPORT"}</a>
                                 </div>
                             </div>
-                            <div id="contact2" class=format!("bg-polygons-gold rounded-bl-lg w-full rounded-br-lg bg-cover {}", &self.state.contact_two_state)>
+                            <div id="contact2" class=format!("bg-polygons-gold rounded-lg w-full bg-cover {}", &self.state.contact_two_state)>
                                 <form action="https://formspree.io/f/xgeplqze" method="POST" class="text-center p-1 lg:p-2 lg:p-5 lg:p-10 elevation-24 m-3 lg:m-10 rounded-lg bg-white">
                                     <div class="flex m-1 lg:m-3">
                                         <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
