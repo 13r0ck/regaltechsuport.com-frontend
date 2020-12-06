@@ -4,5 +4,5 @@ args = ["build", "--dev", "--target", "web", "--out-name", "wasm", "--out-dir", 
 watch = { ignore_pattern = "static/*" }
 
 [tasks.serve]
-command = "simple-http-server"
-args = ["-i", "./static/", "-p", "3000", "--nocache", "--try-file", "./static/index.html"]
+command = "live-server"
+args = ["./static"]

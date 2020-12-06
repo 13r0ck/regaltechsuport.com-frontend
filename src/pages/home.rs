@@ -57,7 +57,7 @@ impl Component for Home {
                 },
                 contact_one_state: "hidden".to_string(),
                 contact_two_state: "hidden".to_string(),
-                password_state: "invisible".to_string(),
+                password_state: "hidden".to_string(),
                 password_value: "Click Generate!".to_string(),
             },
             link,
@@ -182,7 +182,7 @@ impl Component for Home {
                                 <div class="mt-10 xl:mt-24 h-96">
                                     <img class="w-20 sm:w-96 lg:w-56 xl:w-48 mx-auto" src="/img/logo.svg" alt="Crown logo"/>
                                     <h1 class="text-4xl md:text-7xl xl:text-6xl text-gray-800 mx-auto text-center mt-3 lg:mt-4 font-rtsBold">{"Regal Tech Support"}</h1>
-                                    <h2 class="text-xl md:text-6xl xl:text-2xl text-gray-800 mx-auto mt-1 lg:mt-4 font-rts text-center">{"IT Support at home and at work in Colorado Springs"}</h2>
+                                    <h2 class="text-xl md:text-4xl lg:text-3xl xl:text-2xl text-gray-800 mx-auto mt-1 lg:mt-4 font-rts text-center">{"IT Support at home and at work "}<br class="inline xl:hidden"/>{"in Colorado Springs"}</h2>
                                     <div class="flex">
                                     <a href="#contact1" onclick=self.link.callback(move |_| Msg::GetSupport1) class="text-xl sm:text-5xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mx-auto justify-center mt-8 text-white font-rtsBold uppercase tracking-wide rounded-md items-center elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</a>
                                     </div>
@@ -194,15 +194,15 @@ impl Component for Home {
                             <div id="contact1" class=format!("bg-polygons-green rounded-bl-lg w-full rounded-br-lg bg-cover {}", &self.state.contact_one_state)>
                                 <form action="https://formspree.io/f/xgeplqze" method="POST" class="text-center p-1 lg:p-2 lg:p-5 lg:p-10 elevation-24 m-3 lg:m-10 rounded-lg bg-white">
                                     <div class="flex m-1 lg:m-3">
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-40 lg:w-28 xl:w-20 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts uppercase tracking-wide">{"hello@regaltechsupport.com"}</p>
+                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
+                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts">{"hello@regaltechsupport.com"}</p>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-40 lg:w-28 xl:w-20 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
+                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
                                         <input required={true} name="name" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="text" placeholder="What is your name?"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-40 lg:w-28 xl:w-20 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
+                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
                                         <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" name="_replyto" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="email" placeholder="example@email.com"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
@@ -224,7 +224,7 @@ impl Component for Home {
                             <div class="bg-polygons-gray rounded-full bg-top h-8 my-12 flex"></div>
                             <div class="inline-block mx-5 my-10">
                                 <h2 class="text-xl sm:text-6xl lg:text-4xl xl:text-5xl font-rtsBold text-gray-800 text-left">{"What We Do"}</h2>
-                                <img class="lg:w-1/2 h-78 sm:h-80 lg:h-96 p-3 mx-auto lg:float-left" src="/img/jester_bluescreen.svg" alt="Regal Tech Support Mascot using defibrillator on laptop"/>
+                                <img class="lg:w-1/2 h-78 sm:h-80 lg:h-96 p-3 mx-auto lg:float-right" src="/img/jester_bluescreen.svg" alt="Regal Tech Support Mascot using defibrillator on laptop"/>
                                 <div class="lg:w-1/2 lg:float-left p-3 align-middle">
                                     <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"We build modern solutions for you at home and at work."}</p>
                                     <ul class="my-4 text-center lg:text-left lg:mx-1 md:mx-8">
@@ -251,15 +251,15 @@ impl Component for Home {
                             <div id="contact2" class=format!("bg-polygons-gold rounded-bl-lg w-full rounded-br-lg bg-cover {}", &self.state.contact_two_state)>
                                 <form action="https://formspree.io/f/xgeplqze" method="POST" class="text-center p-1 lg:p-2 lg:p-5 lg:p-10 elevation-24 m-3 lg:m-10 rounded-lg bg-white">
                                     <div class="flex m-1 lg:m-3">
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-40 lg:w-28 xl:w-20 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts uppercase tracking-wide">{"hello@regaltechsupport.com"}</p>
+                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
+                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts">{"hello@regaltechsupport.com"}</p>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-40 lg:w-28 xl:w-20 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
+                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
                                         <input required={true} name="name" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="text" placeholder="What is your name?"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-40 lg:w-28 xl:w-20 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
+                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
                                         <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" name="_replyto" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="email" placeholder="example@email.com"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
@@ -297,10 +297,10 @@ impl Component for Home {
                                                     <div class="h-auto xl:h-60 max-w-auto xl:max-w-xl mx-auto">
                                                         <h2 class="font-rts text-xl sm:text-6xl lg:text-4xl xl:text-3xl p-2 underline">{"Data Breach Checker"}</h2>
                                                         <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Enter your email here and we will check daily to see if any of your accounts have been compromised."}</p>
-                                                        <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"We will only contact you after the first scan is complete, and if you are affected by any future data breaches. No marketing emails."}<br/>{"We promise!"}</p>
+                                                        <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"We will only contact you after the first scan is complete, and if you are affected by any future data breaches. No marketing emails."}<br class="inline lg:hidden"/>{"We promise!"}</p>
                                                     </div>
                                                     <form action="https://formspree.io/f/xrgoadlk" method="POST">
-                                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" type="email" placeholder="email@example.com" name="name" class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl border-4 border-indigo-700 py-4 px-8 mx-auto text-gray-800 font-rts uppercase rounded-md text-center w-full" />
+                                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" type="email" placeholder="email@example.com" name="name" class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl border-4 border-indigo-700 mt-4 py-4 px-8 mx-auto text-gray-800 font-rts uppercase rounded-md text-center w-full" />
                                                         <input class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700" type="submit" value="SUBMIT!" />
                                                     </form>
                                                 </div>
