@@ -3,6 +3,10 @@ command = "wasm-pack"
 args = ["build", "--dev", "--target", "web", "--out-name", "wasm", "--out-dir", "./static"]
 watch = { ignore_pattern = "static/*" }
 
+[tasks.publish]
+command = "wasm-pack"
+args = ["build", "--release", "--target", "web", "--out-name", "wasm", "--out-dir", "./static"]
+
 [tasks.serve]
 command = "live-server"
 args = ["./static"]

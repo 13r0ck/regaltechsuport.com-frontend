@@ -57,7 +57,7 @@ impl Component for Home {
                 },
                 contact_one_state: "hidden".to_string(),
                 contact_two_state: "hidden".to_string(),
-                password_state: "hidden".to_string(),
+                password_state: "invisible".to_string(),
                 password_value: "Click Generate!".to_string(),
             },
             link,
@@ -279,22 +279,24 @@ impl Component for Home {
                                             <p class="p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl font-rts text-left">{"Always free, enjoy!"}</p>
                                         </div>
                                     </div>
-                                    <div class="flex ml-10 xl:justify-around">
-                                        <div class="flex-row xl:flex-col flex-1 mr-10">
-                                            <div class="bg-white rounded-lg mx-auto my-10 elevation-24">
-                                                <div id="password_gen" class="p-5 pb-10 xl:p-10 text-center mx-auto xl:h-tools">
-                                                    <div class="h-auto xl:h-60 max-w-auto p-5 xl:max-w-xl mx-auto">
+                                    <div class="inline-block">
+                                        <div class="block w-full xl:flex xl:float-left xl:w-1/2">
+                                            <div class="p-10">
+                                                <div id="password_gen" class="bg-white rounded-lg elevation-24 text-center p-10">
+                                                    <div class="">
                                                         <h2 class="font-rts text-xl sm:text-6xl lg:text-4xl xl:text-3xl p-2 underline">{"Secure Password Generator"}</h2>
                                                         <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Should it have a number? "}<br class="visible lg:invisible" />{"What about replacing an "}<span class="italic bg-gray-300 rounded-sm">{"a"}</span>{" with "}<span class="italic bg-gray-300 rounded-sm">{"@"}</span>{"?"}</p>
                                                         <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Don't worry! We have you covered! Just click generate until you see a cryptographically secure password you like. Stop by any time!"}</p>
                                                     </div>
-                                                    <h3 class=format!("p-5 text-xl sm:text-5xl lg:text-4xl xl:text-1xl bg-indigo-700 py-4 select-all mx-auto text-gray-100 font-rts tracking-wide rounded-md justify-center {}",&self.state.password_state)>{&self.state.password_value}</h3>
+                                                    <h3 class=format!("p-5 text-xl sm:text-5xl lg:text-4xl xl:text-xl bg-indigo-700 border-4 border-indigo-700 mt-4 py-4 px-8 select-all mx-auto text-gray-100 font-rts tracking-wide rounded-md justify-center {}",&self.state.password_state)>{&self.state.password_value}</h3>
                                                     <button onclick=self.link.callback(move |_| Msg::CreatePasswd) class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700">{"GENERATE!"}</button>
                                                 </div>
                                             </div>
-                                            <div class="bg-white rounded-lg mx-auto my-10 elevation-24">
-                                                <div id="breach_check" class="p-5 xl:p-10 text-center mx-auto xl:h-tools">
-                                                    <div class="h-auto xl:h-60 max-w-auto xl:max-w-xl mx-auto">
+                                        </div>
+                                        <div class="inline w-full xl:flex xl:float-right xl:w-1/2">
+                                            <div class="p-10">
+                                                <div id="breach_check" class="bg-white rounded-lg elevation-24 text-center p-10">
+                                                    <div class="">
                                                         <h2 class="font-rts text-xl sm:text-6xl lg:text-4xl xl:text-3xl p-2 underline">{"Data Breach Checker"}</h2>
                                                         <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Enter your email here and we will check daily to see if any of your accounts have been compromised."}</p>
                                                         <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"We will only contact you after the first scan is complete, and if you are affected by any future data breaches. No marketing emails."}<br class="inline lg:hidden"/>{"We promise!"}</p>
