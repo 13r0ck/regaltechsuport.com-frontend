@@ -188,7 +188,7 @@ impl Component for Home {
                                     <h1 class="text-4xl md:text-7xl xl:text-6xl text-gray-800 mx-auto text-center mt-3 lg:mt-4 font-rtsBold">{"Regal Tech Support"}</h1>
                                     <h2 class="text-xl md:text-4xl lg:text-3xl xl:text-2xl text-gray-800 mx-auto mt-1 lg:mt-4 font-rts text-center">{"IT support at home and at work "}<br class="inline xl:hidden"/>{"in Colorado Springs"}</h2>
                                     <div class="flex">
-                                    <a href="#contact1" onclick=self.link.callback(move |_| Msg::GetSupport1) class="text-xl sm:text-5xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mx-auto justify-center mt-8 text-white font-rtsBold uppercase tracking-wide rounded-md items-center elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</a>
+                                    <a href="#contact1" onclick=self.link.callback(move |_| Msg::GetSupport1) class="text-xl sm:text-3xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mx-auto justify-center mt-8 text-white font-rtsBold uppercase tracking-wide rounded-md items-center elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600">{"GET SUPPORT"}</a>
                                     </div>
                                 </div>
                             </div>
@@ -198,81 +198,81 @@ impl Component for Home {
                             <div id="contact1" class=format!("bg-polygons-green rounded-bl-lg w-full rounded-br-lg bg-cover {}", &self.state.contact_one_state)>
                                 <form action="https://formspree.io/f/xgeplqze" method="POST" class="text-center p-1 lg:p-2 lg:p-5 lg:p-10 elevation-24 m-3 lg:m-10 rounded-lg bg-white">
                                     <div class="flex m-1 lg:m-3">
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts">{"hello@regaltechsupport.com"}</p>
+                                        <p class="float-left text-xl sm:text-3xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
+                                        <p class="float-left text-xl sm:text-3xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts">{"hello@regaltechsupport.com"}</p>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
-                                        <input required={true} name="name" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="text" placeholder="What is your name?"/><br/>
+                                        <p class="float-left w-20 text-xl sm:text-3xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
+                                        <input required={true} name="name" class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="text" placeholder="What is your name?"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
-                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" name="_replyto" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="email" placeholder="example@email.com"/><br/>
+                                        <p class="float-left text-xl sm:text-3xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
+                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" name="_replyto" class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="email" placeholder="example@email.com"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <textarea required={true} name="message" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" rows=5 placeholder="How can we help?"></textarea>
+                                        <textarea required={true} name="message" class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" rows=5 placeholder="How can we help?"></textarea>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <input class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700" type="submit" value="SEND!" />
+                                        <input class="focus:outline-none p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700" type="submit" value="SEND!" />
                                     </div>
-                                        <h3 class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl pt-1 font-rtsBold">{"Or call/text us at "}<br class="inline lg:hidden" /><span>{"(719) 440 - 9462"}</span>{"!"}</h3>
+                                        <h3 class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl pt-1 font-rtsBold">{"Or call/text us at "}<br class="inline lg:hidden" /><span>{"(719) 440 - 9462"}</span>{"!"}</h3>
                                 </form>
                             </div>
                             <div class="inline-block mx-5 my-10">
                                 <h2 class="text-xl sm:text-6xl lg:text-4xl xl:text-5xl font-rtsBold text-gray-800 text-right">{"What Makes Us Different?"}</h2>
                                 <div class="flex-row mt-3">
-                                    <img class="lg:w-1/2 h-78 sm:h-80 lg:h-96 p-3 mx-auto lg:float-left" src="/img/jester_weld.svg" alt="Regal Tech Support Marcot welding laptop"/>
-                                    <p class="lg:w-1/2 lg:float-right p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Typical IT support is there only when things break. We prefer a proactive approach. By spending time to understand your situation we will create a reliable technology experience for you! We believe that reliability and security are possible with any budget!"}</p>
+                                    <img class="lg:w-1/2 h-64 sm:h-80 lg:h-96 p-3 mx-auto lg:float-left" src="/img/jester_weld.svg" alt="Regal Tech Support Marcot welding laptop"/>
+                                    <p class="lg:w-1/2 lg:float-right p-5 text-xl sm:text-3xl lg:text-2xl xl:text-2xl">{"Typical IT support is there only when things break. We prefer a proactive approach. By spending time to understand your situation we will create a reliable technology experience for you! We believe that reliability and security are possible with any budget!"}</p>
                                 </div>
                             </div>
                             <div class="bg-polygons-gray rounded-full bg-top h-8 my-12 flex"></div>
                             <div class="inline-block mx-5 my-10">
                                 <h2 class="text-xl sm:text-6xl lg:text-4xl xl:text-5xl font-rtsBold text-gray-800 text-left">{"What We Do"}</h2>
-                                <img class="lg:w-1/2 h-78 sm:h-80 lg:h-96 p-3 mx-auto lg:float-right" src="/img/jester_bluescreen.svg" alt="Regal Tech Support Mascot using defibrillator on laptop"/>
+                                <img class="lg:w-1/2 h-64 sm:h-80 lg:h-96 p-3 mx-auto lg:float-right" src="/img/jester_bluescreen.svg" alt="Regal Tech Support Mascot using defibrillator on laptop"/>
                                 <div class="lg:w-1/2 lg:float-left p-3 align-middle">
-                                    <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"We build modern solutions for you at home and at work."}</p>
+                                    <p class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"We build modern solutions for you at home and at work."}</p>
                                     <ul class="my-4 text-center lg:text-left lg:mx-1 md:mx-8">
-                                        <li class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"WiFi not working?"}</li>
-                                        <li class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Printer won't print?"}</li>
-                                        <li class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Zoom cannot share screen?"}</li>
-                                        <li class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"How to backup Windows?"}</li>
-                                        <li class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Worried about hackers?"}</li>
+                                        <li class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"WiFi not working?"}</li>
+                                        <li class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"Printer won't print?"}</li>
+                                        <li class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"Zoom cannot share screen?"}</li>
+                                        <li class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"How to backup Windows?"}</li>
+                                        <li class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"Worried about hackers?"}</li>
                                     </ul>
                                 </div>
-                                <p class="inline-block mt-2 p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Regal Tech Support is reliable support for your household, family, or small buisness. Contact us and we will discuss possible solutions for free!"}</p>
+                                <p class="inline-block mt-2 p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"Regal Tech Support is reliable support for your household, family, or small buisness. Contact us and we will discuss possible solutions for free!"}</p>
                             </div>
                             <div class="bg-polygons-gray rounded-full bg-center h-8 my-12 flex"></div>
                             <div class="inline-block mx-5 my-10">
                                 <h2 class="text-xl sm:text-6xl lg:text-4xl xl:text-5xl font-rtsBold text-gray-800 text-right">{"24/7 Support"}</h2>
-                                <div class="flex flex-row mt-3">
-                                    <img class="lg:w-1/2 h-78 sm:h-80 lg:h-96 p-3 mx-auto lg:float-left" src="/img/jester_fire.svg" alt="Laptop on fire"/>
-                                    <p class="lg:w-1/2 lg:float-right p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl lg:mb-5">{"Nobody gets to choose when things break. We will be there for you whenever and wherever you need us!"}</p>
+                                <div class="mt-3">
+                                    <img class="lg:w-1/2 h-64 sm:h-80 lg:h-96 p-3 mx-auto lg:float-left" src="/img/jester_fire.svg" alt="Laptop on fire"/>
+                                    <p class="lg:w-1/2 lg:float-right p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl lg:mb-5">{"Nobody gets to choose when things break. We will be there for you whenever and wherever you need us!"}</p>
                                 </div>
-                                <div class="flex">
-                                    <a href="#contact2" onclick=self.link.callback(move |_| Msg::GetSupport2) class=format!("text-xl sm:text-5xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mt-8 justify-center mx-auto text-white font-rtsBold uppercase tracking-wide rounded-md elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 {}", &self.state.support_two_state)>{"GET SUPPORT"}</a>
+                                <div class="flex clear-both">
+                                    <a href="#contact2" onclick=self.link.callback(move |_| Msg::GetSupport2) class=format!("text-xl sm:text-3xl xl:text-2xl focus:outline-none py-2 px-5 py-4 px-8 mt-8 justify-center mx-auto text-white font-rtsBold uppercase tracking-wide rounded-md elevation-10 hover:from-blue-300 bg-gradient-to-tr active:bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600 {}", &self.state.support_two_state)>{"GET SUPPORT"}</a>
                                 </div>
                             </div>
                             <div id="contact2" class=format!("bg-polygons-gold rounded-lg w-full bg-cover {}", &self.state.contact_two_state)>
                                 <form action="https://formspree.io/f/xgeplqze" method="POST" class="text-center p-1 lg:p-2 lg:p-5 lg:p-10 elevation-24 m-3 lg:m-10 rounded-lg bg-white">
                                     <div class="flex m-1 lg:m-3">
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
-                                        <p class="float-left text-xl sm:text-5xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts">{"hello@regaltechsupport.com"}</p>
+                                        <p class="float-left text-xl sm:text-3xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 border-4 border-indigo-700 rounded m-1 font-rtsBold uppercase tracking-wide">{"To:"}</p>
+                                        <p class="float-left text-xl sm:text-3xl lg:text-3xl xl:text-2xl text-left bg-indigo-700 text-white p-2 border-4 flex-grow border-indigo-700 rounded m-1 font-rts">{"hello@regaltechsupport.com"}</p>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
-                                        <input required={true} name="name" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="text" placeholder="What is your name?"/><br/>
+                                        <p class="float-left w-20 text-xl sm:text-3xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Name:"}</p>
+                                        <input required={true} name="name" class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="text" placeholder="What is your name?"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <p class="float-left w-20 text-xl sm:text-5xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
-                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" name="_replyto" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="email" placeholder="example@email.com"/><br/>
+                                        <p class="float-left w-20 text-xl sm:text-3xl lg:text-3xl xl:text-2xl w-44 lg:w-32 xl:w-24 text-left bg-indigo-700 text-white p-2 rounded border-4 border-indigo-700 m-1 font-rtsBold uppercase tracking-wide">{"Email:"}</p>
+                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" name="_replyto" class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" type="email" placeholder="example@email.com"/><br/>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <textarea required={true} name="message" class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" rows=5 placeholder="How can we help?"></textarea>
+                                        <textarea required={true} name="message" class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl float-left p-2 flex-grow m-1 resize-none border-4 rounded-lg border-indigo-700 focus:outline-none focus:border-indigo-600" rows=5 placeholder="How can we help?"></textarea>
                                     </div>
                                     <div class="flex clear-both m-1 lg:m-3">
-                                        <input class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700" type="submit" value="SEND!" />
+                                        <input class="focus:outline-none p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700" type="submit" value="SEND!" />
                                     </div>
-                                        <h3 class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl pt-1 font-rtsBold">{"Or call/text us at "}<br class="inline lg:hidden" /><span>{"(719) 440 - 9462"}</span>{"!"}</h3>
+                                        <h3 class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl pt-1 font-rtsBold">{"Or call/text us at "}<br class="inline lg:hidden" /><span>{"(719) 440 - 9462"}</span>{"!"}</h3>
                                 </form>
                             </div>
                             <div class="bg-polygons-gray rounded-full bg-left-bottom h-8 my-12 flex"></div>
@@ -280,7 +280,7 @@ impl Component for Home {
                                     <div class="flex">
                                         <div class="p-5 bg-white flex-row mx-auto ml-10 float-left rounded-bl-lg rounded-br-lg elevation-5">
                                             <h2 class="text-xl sm:text-6xl lg:text-4xl xl:text-5xl font-rtsBold text-gray-800 text-left">{"Useful Tools!"}</h2>
-                                            <p class="p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl font-rts text-left">{"Always free, enjoy!"}</p>
+                                            <p class="p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl font-rts text-left">{"Always free, enjoy!"}</p>
                                         </div>
                                     </div>
                                     <div class="inline-block">
@@ -289,11 +289,11 @@ impl Component for Home {
                                                 <div id="password_gen" class="bg-white rounded-lg elevation-24 text-center p-10">
                                                     <div class="">
                                                         <h2 class="font-rts text-xl sm:text-6xl lg:text-4xl xl:text-3xl p-2 underline">{"Secure Password Generator"}</h2>
-                                                        <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Should it have a number? "}<br class="visible lg:invisible" />{"What about replacing an "}<span class="italic bg-gray-300 rounded-sm">{"a"}</span>{" with "}<span class="italic bg-gray-300 rounded-sm">{"@"}</span>{"?"}</p>
-                                                        <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Don't worry! We have you covered! Just click generate until you see a cryptographically secure password you like. Stop by any time!"}</p>
+                                                        <p class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"Should it have a number? "}<br class="visible lg:invisible" />{"What about replacing an "}<span class="italic bg-gray-300 rounded-sm">{"a"}</span>{" with "}<span class="italic bg-gray-300 rounded-sm">{"@"}</span>{"?"}</p>
+                                                        <p class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"Don't worry! We have you covered! Just click generate until you see a cryptographically secure password you like. Stop by any time!"}</p>
                                                     </div>
-                                                    <h3 class=format!("p-5 text-xl sm:text-5xl lg:text-4xl xl:text-xl bg-indigo-700 border-4 border-indigo-700 mt-4 py-4 px-8 select-all mx-auto text-gray-100 font-rts tracking-wide rounded-md justify-center {}",&self.state.password_state)>{&self.state.password_value}</h3>
-                                                    <button onclick=self.link.callback(move |_| Msg::CreatePasswd) class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700">{"GENERATE!"}</button>
+                                                    <h3 class=format!("p-5 text-xl sm:text-3xl lg:text-4xl xl:text-xl bg-indigo-700 border-4 border-indigo-700 mt-4 py-4 px-8 select-all mx-auto text-gray-100 font-rts tracking-wide rounded-md justify-center {}",&self.state.password_state)>{&self.state.password_value}</h3>
+                                                    <button onclick=self.link.callback(move |_| Msg::CreatePasswd) class="focus:outline-none p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700">{"GENERATE!"}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -302,12 +302,12 @@ impl Component for Home {
                                                 <div id="breach_check" class="bg-white rounded-lg elevation-24 text-center p-10">
                                                     <div class="">
                                                         <h2 class="font-rts text-xl sm:text-6xl lg:text-4xl xl:text-3xl p-2 underline">{"Data Breach Checker"}</h2>
-                                                        <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"Enter your email here and we will check daily to see if any of your accounts have been compromised."}</p>
-                                                        <p class="text-xl sm:text-5xl lg:text-3xl xl:text-2xl">{"We will only contact you after the first scan is complete, and if you are affected by any future data breaches. No marketing emails."}<br class="inline lg:hidden"/>{"We promise!"}</p>
+                                                        <p class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"Enter your email here and we will check daily to see if any of your accounts have been compromised."}</p>
+                                                        <p class="text-xl sm:text-3xl lg:text-3xl xl:text-2xl">{"We will only contact you after the first scan is complete, and if you are affected by any future data breaches. No marketing emails."}<br class="inline lg:hidden"/>{"We promise!"}</p>
                                                     </div>
                                                     <form action="https://formspree.io/f/xrgoadlk" method="POST">
-                                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" type="email" placeholder="email@example.com" name="name" class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl border-4 border-indigo-700 mt-4 py-4 px-8 mx-auto text-gray-800 font-rts uppercase rounded-md text-center w-full" />
-                                                        <input class="focus:outline-none p-5 text-xl sm:text-5xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700" type="submit" value="SUBMIT!" />
+                                                        <input required={true} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,63}$" type="email" placeholder="email@example.com" name="name" class="focus:outline-none p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl border-4 border-indigo-700 mt-4 py-4 px-8 mx-auto text-gray-800 font-rts uppercase rounded-md text-center w-full" />
+                                                        <input class="focus:outline-none p-5 text-xl sm:text-3xl lg:text-3xl xl:text-2xl py-5 px-8 mx-auto flex mt-8 text-gray-100 font-rtsBold uppercase tracking-wide rounded-md justify-center w-full bg-gradient-to-tr hover:from-green-400 active:bg-gradient-to-bl from-green-500 to-green-700" type="submit" value="SUBMIT!" />
                                                     </form>
                                                 </div>
                                             </div>
