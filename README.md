@@ -1,3 +1,5 @@
+# View at [https://regaltechsupport.com](https://regaltechsupport.com)
+
 # This is a fontend built with: [Yew](https://github.com/yewstack/yew) web framework, and [Tailwind CSS](https://tailwindcss.com/)
 ## This project is then inserted into [regaltchsupport.com-backend](https://github.com/13r0ck/regaltechsupport.com-backend) for a full stack rust website
 
